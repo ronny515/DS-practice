@@ -9,14 +9,32 @@ cab
 cba
 */
 #include <stdio.h> 
-int
-main(void)
-{
+#include <stdlib.h> 
 
-	int Ack(int x,int n){
-		if(x==0)return n+1;
-		else if(n==0) return Ack(x-1,1);
-		else return Ack(x-1,Ack(x,n-1));
+int main(void)
+{
+	void Swap(char *p1 ,char *p2){
+		char temp;
+		temp=*p1;
+		*p1=*p2 ;
+		*p2=temp ;
+	}
+
+
+
+	void perm(char list[], int i,int n){
+		int j,temp;
+		if(i==n){
+			for(j=1;j<=n;j++)printf("%c", list[j]);
+			printf("\n");
+		}
+		else{
+			for(j=i;j<=n;j++){
+				Swap(&list[i],&list[j]);
+				perm(list, i+1, n);
+				Swap(&list[i],&list[j]);
+			}
+		}
 	}
 	/*
 	int x,  // input - x.      
@@ -27,9 +45,23 @@ main(void)
 	scanf("%d",&n);
 	
 	*/
-  
-	int x=4,  // input - x.      
-	n=0;    // output - n           
-	printf("Arc(%d,%d)=%d.\n", x,n,Ack(x,n));
+	char list[4];
+	int i,n;
+	i=1;
+	n=3;
+	list[1]='a';
+	list[2]='b';
+	list[3]='c';
+	//list[4]='d';
+	
+	
+	int j;
+	//for(j=1;j<=n;j++)printf("%c", list[j]);
+	
+	perm(list, i,n);
+	printf("\n");
+
+	for(j=1;j<=n;j++)printf("%c", list[j]);
+	
 	return (0);
 }
